@@ -162,5 +162,18 @@
     "category": "casc",
     "thumbnail": "https://cdn-icons-png.flaticon.com/512/1554/1554591.png",
     "id": 16
+  },
+  {
+    "title": "sadsasd",
+    "description": "asdasda",
+    "code": "GALICIA_CODER",
+    "price": "312312",
+    "status": true,
+    "stock": "12312",
+    "category": "asd",
+    "thumbnail": [
+      "https://cdn-icons-png.flaticon.com/512/1554/1554591.png"
+    ],
+    "id": 17
   }
 ]

@@ -24,7 +24,7 @@ function renderProductList(products) {
           <h2 class="titleCard">${product.title}</h2>
           <img class="imgCard" src="${product.thumbnail}" alt="${product.title}" />
           <section class="textCard">
-            <p>ID: ${product.id}</p>
+            <p>ID: ${product._id}</p>
             <p>${product.description}</p>
             <p>Stock: ${product.stock} unidades</p>
             <p><span>${product.price}</span></p>
@@ -35,7 +35,7 @@ function renderProductList(products) {
 
       const btnDelete2 = liProduct.querySelector(".btnDelete2");
       btnDelete2.addEventListener("click", () => {
-        deleteProduct(product.id);
+        deleteProduct(product._id);
       });
     });
   } catch (error) {

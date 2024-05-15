@@ -1,8 +1,7 @@
 import express from "express";
-import { ProductManager } from "../services/productManager.js";
+import productsModel from "../dao/models/products.model.js";
 
 
-const productManager = new ProductManager();
 
 export const realTimeProductsRouter = express.Router()
 
@@ -12,15 +11,22 @@ export const realTimeProductsRouter = express.Router()
 realTimeProductsRouter.get("/home", async (req, res) => {
 
   const limit = parseInt(req.query.limit);
-  let mostrar
 
   try {
-    const products = await productManager.getProducts();
-    !isNaN(limit) ? mostrar = products.slice(0, limit) : mostrar = products
+    let products;
+    if(!isNaN(limit)) {
+
+      products = await productsModel.find().limit(limit).lean();
+      console.log(products)
+
+    } else{
+      products = await productsModel.find().lean()
+      console.log(products)
+    }
 
     res.render('home',{
       style:'style.css',
-      productos: mostrar
+      productos: products
 
     })
   

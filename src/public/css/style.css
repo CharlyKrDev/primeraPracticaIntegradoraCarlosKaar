@@ -22,6 +22,27 @@ text-decoration: none;
     cursor: pointer;
 }
 
+.header{
+    background-color: white;
+
+    height: 80px;
+    border-bottom: 1px solid black;
+
+} 
+.header img{
+
+    max-height:79px;
+
+}
+
+.navBar{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px
+}
+
 .formUser {
     display: flex;
     gap: 8px;
