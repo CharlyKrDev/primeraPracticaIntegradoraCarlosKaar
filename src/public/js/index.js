@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkFields();
 });
 
-//Gestion de mensajes
+//Gestión de mensajes
 
 document.addEventListener('DOMContentLoaded', function() {
   const btnSendMessage = document.getElementById("btnSendMessage");
@@ -118,14 +118,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const userEmail = document.getElementById("userMail");
 
   btnSendMessage.addEventListener("click", () => {
-    console.log(`click en el botón`);
     sendMessage(chatMessage.value, userEmail.value);
   });
 
   chatMessage.addEventListener('keypress', (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Evitar el comportamiento predeterminado del Enter
-      sendMessage(chatMessage.value, userEmail.value); // Llamar a sendMessage con el mensaje y el usuario
+      e.preventDefault(); 
+      sendMessage(chatMessage.value, userEmail.value); 
     }
   });
 });
