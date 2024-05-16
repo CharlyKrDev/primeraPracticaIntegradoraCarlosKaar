@@ -17,11 +17,9 @@ realTimeProductsRouter.get("/home", async (req, res) => {
     if(!isNaN(limit)) {
 
       products = await productsModel.find().limit(limit).lean();
-      console.log(products)
 
     } else{
       products = await productsModel.find().lean()
-      console.log(products)
     }
 
     res.render('home',{
@@ -44,4 +42,11 @@ realTimeProductsRouter.get("/realTimeProducts", (req, res)=>{
   })
 })
 
+// realTimeProductsRouter.get("/chat", (req, res)=>{
+
+//   res.render('messages',{
+//     style:'style.css',
+
+
+//   })})
 

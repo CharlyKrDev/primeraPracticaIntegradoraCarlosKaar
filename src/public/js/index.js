@@ -1,5 +1,6 @@
 const socket = io();
 
+// Re renderizado posterior a modificaciones
 socket.on("currentProducts", async function (products) {
   renderProductList(products);
 });
@@ -12,12 +13,13 @@ socket.on("addProduct", async function (products) {
   renderProductList(products);
 });
 
+// Renderizado de productos
+
 function renderProductList(products) {
   const productList = document.getElementById("productList");
   productList.innerHTML = "";
   try {
     products.forEach((product) => {
-
       const liProduct = document.createElement("ul");
       liProduct.innerHTML = ` 
           <div class="cardContainer">     
@@ -35,6 +37,7 @@ function renderProductList(products) {
 
       const btnDelete2 = liProduct.querySelector(".btnDelete2");
       btnDelete2.addEventListener("click", () => {
+        console.log(`Click delete`)
         deleteProduct(product._id);
       });
     });
@@ -43,55 +46,56 @@ function renderProductList(products) {
   }
 }
 
+// Borrar Producto por ID
 const deleteProduct = (productId) => {
   socket.emit("deleteProduct", productId);
 };
 
+// Gestión de carga de producto por formulario
 
+document.getElementById("formSection").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const title = document.getElementById("title").value;
+  const description = document.getElementById("description").value;
+  const code = document.getElementById("code").value;
+  const price = document.getElementById("price").value;
+  const status = document.getElementById("status").value;
+  const stock = document.getElementById("stock").value;
+  const category = document.getElementById("category").value;
+  const thumbnail = document.getElementById("thumbnail").value;
+  socket.emit("addProduct", {
+    title: title,
+    description: description,
+    code: code,
+    price: price,
+    status: status,
+    stock: stock,
+    category: category,
+    thumbnail: thumbnail,
+  });
+  document.getElementById("title").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("code").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("status").value = "";
+  document.getElementById("stock").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("thumbnail").value = "";
+});
 
-document.getElementById('formSection').addEventListener('submit', function(e) {
-  e.preventDefault()
-  const title = document.getElementById('title').value
-  const description = document.getElementById('description').value
-  const code = document.getElementById('code').value
-  const price = document.getElementById('price').value
-  const status = document.getElementById('status').value
-  const stock = document.getElementById('stock').value
-  const category = document.getElementById('category').value
-  const thumbnail = document.getElementById('thumbnail').value
-  socket.emit('addProduct', { 
-      title: title, 
-      description: description,
-      code:code,       
-      price: price,
-      status:status,
-      stock:stock,
-      category:category ,
-      thumbnail: thumbnail
-      })
-  document.getElementById('title').value = ''
-  document.getElementById('description').value = ''
-  document.getElementById('code').value = ''
-  document.getElementById('price').value = ''
-  document.getElementById('status').value = ''
-  document.getElementById('stock').value = ''
-  document.getElementById('category').value = ''
-  document.getElementById('thumbnail').value = ''
-})
+// Validación para se llenen los campos obligatorios del formulario
 
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.querySelector('.formProduct');
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector(".formProduct");
   const submitButton = form.querySelector('button[type="submit"]');
-  const requiredFields = form.querySelectorAll('input[name="title"], input[name="description"], input[name="code"], input[name="price"], input[name="stock"], input[name="category"]');
+  const requiredFields = form.querySelectorAll(
+    'input[name="title"], input[name="description"], input[name="code"], input[name="price"], input[name="stock"], input[name="category"]'
+  );
 
   function checkFields() {
     let allFieldsFilled = true;
-    requiredFields.forEach(field => {
-      if (field.value.trim() === '') {
+    requiredFields.forEach((field) => {
+      if (field.value.trim() === "") {
         allFieldsFilled = false;
       }
     });
@@ -99,9 +103,34 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.disabled = !allFieldsFilled;
   }
 
-  requiredFields.forEach(field => {
-    field.addEventListener('input', checkFields);
+  requiredFields.forEach((field) => {
+    field.addEventListener("input", checkFields);
   });
 
-  checkFields(); 
+  checkFields();
 });
+
+//Gestion de mensajes
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btnSendMessage = document.getElementById("btnSendMessage");
+  const chatMessage = document.getElementById("chatMessage");
+  const userEmail = document.getElementById("userMail");
+
+  btnSendMessage.addEventListener("click", () => {
+    console.log(`click en el botón`);
+    sendMessage(chatMessage.value, userEmail.value);
+  });
+
+  chatMessage.addEventListener('keypress', (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Evitar el comportamiento predeterminado del Enter
+      sendMessage(chatMessage.value, userEmail.value); // Llamar a sendMessage con el mensaje y el usuario
+    }
+  });
+});
+
+const sendMessage = (message, user) => {
+  socket.emit("message", { message, user });
+  document.getElementById("chatMessage").value = "";
+};

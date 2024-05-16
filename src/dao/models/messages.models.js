@@ -3,13 +3,11 @@ import mongoose from "mongoose";
 const messagesCollection = "messages";
 
 const messagesSchema = new mongoose.Schema({
-    messages: {
-    type: Array,
-    default: [
-      {
-        messages: String,
-      },
-    ],
+  user: {type: String, required: true},
+  messages: {
+    type: [String],
+    required:true,
+    default: [],
   },
 });
 

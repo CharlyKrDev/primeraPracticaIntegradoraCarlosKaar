@@ -4,9 +4,12 @@ import { realTimeProductsRouter} from "./routes/realTimeProductsRouter.js";
 // import { registerRouter } from "./routes/registerRouter.js";
 import { Server } from "socket.io"; 
 import productsRouter from "./routes/productsRouters.js";
+
 import cartsRouter from "./routes/cartsRouters.js";
 import handlebars from 'express-handlebars'
 import {socketConnection} from './connection/handleSockets.js'
+import {messagesConnection} from './connection/messagesSockets.js'
+
 import mongoose from 'mongoose'
 import  dotenv from 'dotenv';
 
@@ -42,3 +45,4 @@ mongoose.connect(mongoServer)
   });
 
 socketConnection(socketServer)
+messagesConnection(socketServer)

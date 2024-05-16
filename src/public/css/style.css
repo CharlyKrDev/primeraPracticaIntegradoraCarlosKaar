@@ -118,6 +118,7 @@ text-decoration: none;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    width: 50%;
 
     
 }
@@ -125,4 +126,33 @@ text-decoration: none;
 
     width: 50%;
     margin: auto;
+}
+
+
+/*
+Chat Style
+*/
+.chatContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.chatForm{
+    width: 30%;
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+    margin-top: 30px;
+}
+.chatText{
+    min-width: 285px;
+    height: 100px;
+}
+
+.containerMain{
+    display: flex;
+    width: 100%;
 }
