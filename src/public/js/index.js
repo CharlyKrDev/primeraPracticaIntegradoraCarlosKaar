@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkFields();
 });
 
-//Gestión de mensajes y su envió por socket
+//Gestión de mensajes y su envió por socket!
 
 document.addEventListener('DOMContentLoaded', function() {
   const btnSendMessage = document.getElementById("btnSendMessage");
