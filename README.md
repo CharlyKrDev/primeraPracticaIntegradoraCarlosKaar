@@ -126,6 +126,119 @@ export class CartManager {
 
 ### MongoDB es una base de datos NoSQL que ofrece flexibilidad, escalabilidad y rendimiento para una amplia variedad de aplicaciones, desde aplicaciones web hasta análisis de datos y aplicaciones móviles. Su enfoque en documentos JSON y su arquitectura distribuida lo hacen especialmente adecuado para aplicaciones modernas que requieren manejo de datos flexible y escalabilidad.
 
+## Gestión CRUD
+
+```javascript
+const productsRouter = Router();
+
+productsRouter.get("/api/products", async (req, res) => {
+  const limit = parseInt(req.query.limit);
+
+  try {
+    let products;
+    if (!isNaN(limit)) {
+      products = await productsModel.find().limit(limit);
+    } else {
+      products = await productsModel.find();
+    }
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+});
+
+productsRouter.get("/api/products/:pid", async (req, res) => {
+  const productId = req.params.pid;
+  try {
+    let product;
+
+    product = await productsModel.findOne({ _id: productId });
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+});
+productsRouter.post("/api/products", async (req, res) => {
+  const {
+    title,
+    description,
+    code,
+    price,
+    status,
+    stock,
+    category,
+    thumbnail,
+  } = req.body;
+  try {
+    let checkCode = await productsModel.find({ code: code });
+
+    if (checkCode.length > 0) {
+      return res.status(400).json({ error: "Code existente" });
+    }
+
+    const newProduct = await productsModel.create(req.body);
+
+    res.status(200).json({
+      Producto: newProduct,
+      message: `Producto cargado correctamente`,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}),
+  productsRouter.put("/api/products/:pid", async (req, res) => {
+    const productId = req.params.pid;
+    const {
+      title,
+      description,
+      code,
+      price,
+      status,
+      stock,
+      category,
+      thumbnail,
+    } = req.body;
+    try {
+      let checkId = await productsModel.findOne({ _id: productId });
+      if (!checkId) {
+        return res
+          .status(404)
+          .send(`No se encontró ningún producto con el ID ${productId}`);
+      }
+
+      let checkCode = await productsModel.find({ code: code });
+
+      if (checkCode.length > 0) {
+        return res.status(400).json({ error: "Code existente" });
+      }
+      await productsModel.updateOne({ _id: productId }, req.body);
+
+      res.status(200).json({ message: `Producto actualizado correctamente` });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+productsRouter.delete("/api/products/:pid", async (req, res) => {
+  const productId = req.params.pid;
+
+  try {
+    let checkId = await productsModel.findOne({ _id: productId });
+    if (!checkId) {
+      return res
+        .status(404)
+        .send(`No se encontró ningún producto con el ID ${productId}`);
+    }
+    await productsModel.deleteOne({ _id: productId });
+    res
+      .status(200)
+      .json({message:`El producto id: ${productId} ha sido eliminado correctamente`});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+```
+
 ![Screenshot 2024-05-17 021910](https://github.com/CharlyKrDev/primeraPracticaIntegradoraCarlosKaar/assets/123911937/10654d11-fba5-4218-80ff-0c1fd863d02c)
 
 
@@ -133,7 +246,27 @@ export class CartManager {
 
 
 ### Mongoose simplifica el desarrollo de aplicaciones Node.js que utilizan MongoDB como base de datos al proporcionar una capa de abstracción sobre la base de datos, permitiendo definir modelos de datos, validar datos, ejecutar consultas y más, de una manera más fácil y estructurada.
+```javascript
+const productsCollection = 'products'
 
+const productsSchema = new mongoose.Schema({
+
+    title:{type:String, required:true},
+    description:{type:String, required:true},
+    code:{type:String, required:true},
+    price:{type:Number, required:true},
+    status:{type:Boolean, required:false,default:true},
+    stock:{type:Number, required:true },
+    category:{type:String, required:true},
+    thumbnail:{type:Array, default:[], required:false},
+
+})
+
+const productsModel = mongoose.model(productsCollection,productsSchema )
+
+export default productsModel
+
+```
 ![Screenshot 2024-05-17 022251](https://github.com/CharlyKrDev/primeraPracticaIntegradoraCarlosKaar/assets/123911937/58c13a1b-9021-484e-81ae-4e60501f2845)
 
 
