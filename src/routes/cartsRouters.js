@@ -22,9 +22,7 @@ cartsRouter.post("/api/carts", async (req, res) => {
   try {
     cartsManager.createCart(cartEmpty);
 
-    res
-      .status(201)
-      .json({message: `Carrito creado correctamente` });
+    res.status(201).json({ message: `Carrito creado correctamente` });
   } catch (error) {
     res.status(500).json(`Error al obtener cargar producto en carrito`, error);
   }
@@ -37,7 +35,6 @@ cartsRouter.post("/api/carts/:cid/products/:pid", async (req, res) => {
   try {
     const checkId = await cartsManager.checkProductId(prodId);
     const checkIdCart = await cartsManager.checkCartId(cartId);
-
 
     if (!checkId) {
       return res

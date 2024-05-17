@@ -1,5 +1,9 @@
 <main class="editProducts">
-    <button style="margin-top:30px"><a href="http://localhost:8080/home/">Volver</a></button>
+  <button style="margin-top:30px"><a
+      href="http://localhost:8080/home/"
+    >Volver</a></button>
+  <button style="margin-top:30px"><a href="http://localhost:8080/chat/">Atención
+      por chat</a></button>
 
   <header>
     <h2>Agregar producto</h2>
@@ -8,61 +12,46 @@
   <h3 style="margin-bottom: 10px;">Los siguientes campos son obligatorios:
     Titulo, Descripción, Código, Precio, Stock, Categoría:</h3>
 
-  <div class="containerMain">
-    <section class="containerForm">
-      <form
-        class="containerForm formProduct"
-        id="formSection"
-        action="/realTimeProducts"
-        method="post"
-      >
-        <label for="">Titulo: </label>
-        <input type="text" id="title" name="title" />
-        <label for="">Descripción: </label>
-        <input type="text" id="description" name="description" />
-        <label for="">Código del producto: </label>
-        <input type="text" id="code" name="code" />
-        <label for="">Precio: </label>
-        <input type="number" id="price" name="price" />
-        <label for="">Status (true o false, cualquier otro valor es true):
-        </label>
-        <input type="text" id="status" name="status" />
-        <label for="">Stock: </label>
-        <input type="number" id="stock" name="stock" />
-        <label for="">Categoría: </label>
-        <input type="text" id="category" name="category" />
-        <label for="">Imagen (url): </label>
-        <input type="url" id="thumbnail" name="thumbnail" />
-        <button type="submit">Cargar</button>
-      </form>
-    </section>
-    <section class="chatContainer">
-      <h2>Formulario de contacto</h2>
-      <form action="" class="chatForm">
-        <label for="">Mail de contacto:
-        </label>
-        <input
-          class="chatInput"
-          type="text"
-          name="userEmail"
-          required
-          id="userMail"
-          placeholder="Ingrese su E-mail"
-        />
-        <label for="">Mensaje:
-        </label>
-        <textarea
-          class="chatText"
-          id="chatMessage"
-          required
-          placeholder="Ingrese su mensaje, Gracias."
-        ></textarea>
-        <button type="submit" id="btnSendMessage">Enviar</button>
-      </form>
-    </section>
-  </div>
+  <section class="containerForm">
+    <form
+      class="formProduct"
+      id="formSection"
+      action="/realTimeProducts"
+      method="post"
+    >
+      <label for="title">Titulo: </label>
+      <input type="text" id="title" name="title" />
+
+      <label for="description">Descripción: </label>
+      <input type="text" id="description" name="description" />
+
+      <label for="code">Código del producto: </label>
+      <input type="text" id="code" name="code" />
+
+      <label for="price">Precio: </label>
+      <input type="number" id="price" name="price" />
+
+      <label for="status">Status (true o false, cualquier otro valor es true):
+      </label>
+      <input type="text" id="status" name="status" />
+
+      <label for="stock">Stock: </label>
+      <input type="number" id="stock" name="stock" />
+
+      <label for="category">Categoría: </label>
+      <input type="text" id="category" name="category" />
+
+      <label for="thumbnail">Imagen (url): </label>
+      <input type="url" id="thumbnail" name="thumbnail" />
+
+      <button type="submit">Cargar</button>
+    </form>
+  </section>
+
   <section class="container" id="productList">
 
   </section>
 
 </main>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="js/index.js"></script>

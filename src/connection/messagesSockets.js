@@ -6,11 +6,13 @@ export const messagesConnection = (socketServer) => {
 
   socketServer.on("connection", async (socket) => {
     try {
-      socket.on('message', async ({ message, user }) => {
-        if(!message){
-            return
+      socket.on("message", async ({ message, user }) => {
+        if (!message) {
+          return;
         }
-        if(!user){return}
+        if (!user) {
+          return;
+        }
         const existingUser = await messagesModel.findOne({ user });
         if (existingUser) {
           existingUser.messages.push(message);

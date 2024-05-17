@@ -1,27 +1,29 @@
 import express from "express";
-import  {viewsPath, publicPath} from "./utils.js";
-import { realTimeProductsRouter} from "./routes/realTimeProductsRouter.js";
+import { viewsPath, publicPath } from "./utils.js";
+import { realTimeProductsRouter } from "./routes/realTimeProductsRouter.js";
+import { homeRouter } from "./routes/homeRouters.js";
+
 // import { registerRouter } from "./routes/registerRouter.js";
-import { Server } from "socket.io"; 
+import { Server } from "socket.io";
 import productsRouter from "./routes/productsRouters.js";
-
+import { chatRouter } from "./routes/chatRouters.js";
 import cartsRouter from "./routes/cartsRouters.js";
-import handlebars from 'express-handlebars'
-import {socketConnection} from './connection/handleSockets.js'
-import {messagesConnection} from './connection/messagesSockets.js'
+import handlebars from "express-handlebars";
+import { socketConnection } from "./connection/handleSockets.js";
+import { messagesConnection } from "./connection/messagesSockets.js";
 
-import mongoose from 'mongoose'
-import  dotenv from 'dotenv';
-
-
-
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 const app = express();
 const PORT = 8080;
-const httpServer = app.listen(PORT, console.log(`Server running on port: ${PORT}`));
-const socketServer = new Server(httpServer) 
-dotenv.config()
-const mongoServer = process.env.MONGO_URL
+const httpServer = app.listen(
+  PORT,
+  console.log(`Server running on port: ${PORT}`)
+);
+const socketServer = new Server(httpServer);
+dotenv.config();
+const mongoServer = process.env.MONGO_URL;
 
 app.set("views", viewsPath);
 app.enable("view cache");
@@ -34,15 +36,18 @@ app.set("view engine", "handlebars");
 
 app.use("/", productsRouter);
 app.use("/", cartsRouter);
-app.use("/", realTimeProductsRouter);
+app.use("/realTimeProducts", realTimeProductsRouter);
+app.use("/chat", chatRouter);
+app.use("/home", homeRouter);
 
-mongoose.connect(mongoServer) 
+mongoose
+  .connect(mongoServer)
   .then(() => {
-    console.log('Conectado a la DB');
+    console.log("Conectado a la DB");
   })
-  .catch(error => {
+  .catch((error) => {
     console.error(error, `error`);
   });
 
-socketConnection(socketServer)
-messagesConnection(socketServer)
+socketConnection(socketServer);
+messagesConnection(socketServer);

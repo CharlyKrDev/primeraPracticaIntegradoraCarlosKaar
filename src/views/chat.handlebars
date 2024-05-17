@@ -1,0 +1,30 @@
+<section class="chatContainer">
+  <h2>Formulario de contacto</h2>
+  <form action="" class="chatForm">
+    <label for="userMail">Mail de contacto:
+    </label>
+    <input
+      class="chatInput"
+      type="text"
+      name="userEmail"
+      required
+      id="userMail"
+      placeholder="Ingrese su E-mail"
+    />
+    <label for="chatMessage">Mensaje:
+    </label>
+    <textarea
+      class="chatText"
+      id="chatMessage"
+      required
+      placeholder="Ingrese su mensaje, Gracias."
+    ></textarea>
+    <button type="submit" id="btnSendMessage">Enviar</button>
+    <button style="margin-top:2px"><a
+        href="http://localhost:8080/home/"
+      >Inicio</a></button>
+
+  </form>
+</section>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/chat.js"></script>
