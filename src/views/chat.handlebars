@@ -1,6 +1,7 @@
-<section class="chatContainer">
-  <h2>Formulario de contacto</h2>
+<main class="chatContainer">
   <form action="" class="chatForm">
+      <h2>Formulario de contacto</h2>
+
     <label for="userMail">Mail de contacto:
     </label>
     <input
@@ -25,6 +26,11 @@
       >Inicio</a></button>
 
   </form>
+<section class="containerHistoric">
+  <h2>Historial de consultas</h2>
+  <div id="idMessage"></div>
 </section>
+
+</main>
 <script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/chat.js"></script>

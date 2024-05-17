@@ -138,20 +138,41 @@ Chat Style
 .chatContainer{
     width: 80%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+    gap:20px;
+    margin:auto;
+    flex-wrap:wrap ;
 }
 .chatForm{
-    width: 30%;
+    width: 50%;
     display: flex;
     gap:10px;
     flex-direction: column;
     margin-top: 30px;
+    
 }
 .chatText{
     min-width: 285px;
     height: 100px;
 }
 
+.containerHistoric {
+  width: 50%;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  margin-top: 30px;
+  background-color: rgba(0, 0, 0, 0.685);
+  color:white;
+  min-height: 300px;
+  }
+
+#idMessage {
+  margin: 5px 2px;
+  display: flex;
+  flex-direction: column;
+}

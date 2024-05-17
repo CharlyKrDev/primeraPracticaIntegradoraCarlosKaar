@@ -7,18 +7,17 @@ export const messagesConnection = (socketServer) => {
   socketServer.on("connection", async (socket) => {
     try {
       socket.on("message", async ({ message, user }) => {
-        if (!message) {
-          return;
-        }
-        if (!user) {
+        if (!message || !user) {
           return;
         }
         const existingUser = await messagesModel.findOne({ user });
         if (existingUser) {
           existingUser.messages.push(message);
           await existingUser.save();
+          socketServer.emit('message', existingUser.messages);
         } else {
-          await messagesModel.create({ user, messages: [message] });
+          const newUser = await messagesModel.create({ user, messages: [message] });
+          socketServer.emit('message', newUser.messages);
         }
       });
     } catch (error) {
@@ -26,4 +25,9 @@ export const messagesConnection = (socketServer) => {
       socket.emit("error", { message: "Error al procesar la solicitud" });
     }
   });
+  
 };
+
+
+
+

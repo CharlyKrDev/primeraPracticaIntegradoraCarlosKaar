@@ -25,3 +25,14 @@ const sendMessage = (message, user) => {
 };
 
 
+
+socket.on('message', (messages) => {
+  const containerMessage = document.getElementById('idMessage');
+  containerMessage.innerHTML = ''; // Limpiar mensajes anteriores
+  
+  messages.forEach((message) => {
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message;
+    containerMessage.appendChild(messageElement);
+  });
+});
