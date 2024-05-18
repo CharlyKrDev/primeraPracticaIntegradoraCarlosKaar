@@ -67,6 +67,7 @@ text-decoration: none;
     width: 80%;
     gap: 8px;
     margin: auto;
+    margin-bottom: 50px;
 }
 
 .cardContainer {
@@ -75,9 +76,11 @@ text-decoration: none;
     margin-top: 20px;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     border: 2px solid black;
     background-color: rgba(128, 128, 128, 0.555);
     padding: 20px 10px;
+    min-height: 320px;
 }
 
 & p {
@@ -137,6 +140,7 @@ Chat Style
 */
 .chatContainer{
     width: 80%;
+    min-height: 82.6%;
     display: flex;
     align-items: center;
     justify-content: center;

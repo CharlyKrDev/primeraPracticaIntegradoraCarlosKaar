@@ -1,6 +1,6 @@
 <main class="chatContainer">
   <form action="" class="chatForm">
-      <h2>Formulario de contacto</h2>
+    <h2>Formulario de contacto</h2>
 
     <label for="userMail">Mail de contacto:
     </label>
@@ -18,18 +18,18 @@
       class="chatText"
       id="chatMessage"
       required
-      placeholder="Ingrese su mensaje, Gracias."
+      placeholder="Ingrese tu consulta, ya nos contactaremos. Gracias."
     ></textarea>
-    <button type="submit" id="btnSendMessage">Enviar</button>
-    <button style="margin-top:2px"><a
+    <button type="submit" style="margin-top:10px" id="btnSendMessage">Enviar</button>
+    <button style="margin-top:10px"><a
         href="http://localhost:8080/home/"
       >Inicio</a></button>
 
   </form>
-<section class="containerHistoric">
-  <h2>Historial de consultas</h2>
-  <div id="idMessage"></div>
-</section>
+  <section class="containerHistoric">
+    <h2>Historial de consultas</h2>
+    <div id="idMessage"></div>
+  </section>
 
 </main>
 <script src="/socket.io/socket.io.js"></script>
